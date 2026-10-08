@@ -13,7 +13,13 @@ function App() {
   };
 const deleteTask =(id)=>{
   setTasks(tasks.filter((task)=>task.id !== id));
-}
+};
+const markDone =(id)=>{
+  setTasks(tasks.map((task)=>
+    task.id===id?{...task,status:"Done"}:task)
+  );
+};
+
   return(
     <div>
       <h1>Task Management</h1>
@@ -27,9 +33,10 @@ const deleteTask =(id)=>{
       {
         tasks.map((task)=>(
           <div key={task.id}>
-            <h1>{task.title}</h1>
+            <h1 style={{color:task.status==="Done"?'green':'red'}}>{task.title}</h1>
             <p>{task.status}</p>
             <button onClick={()=>deleteTask(task.id)}>Delete</button>
+            <button onClick={()=>markDone(task.id)}>mark as done</button>
           </div>
         )
         )
